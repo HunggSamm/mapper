@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/api/v1/students",
+                method: "GET",
+                success: function(data) {
+                    let studentsHtml = "";
+                    data.forEach(function(student) {
+                        studentsHtml += "<tr>";
+                        studentsHtml += "<td>" + student.id + "</td>";
+                        studentsHtml += "<td>" + student.name + "</td>";
+                        studentsHtml += "<td>" + student.email + "</td>";
+                        studentsHtml += "<td>" + student.phone + "</td>";
+                        studentsHtml += "<td>" + student.address + "</td>";
+                        studentsHtml += "<td>" + student.city + "</td>";
+                        studentsHtml += "</tr>";
+                    });
+                    $("#students-table tbody").html(studentsHtml);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Student List</h1>
+<table id="students-table" border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>City</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+</html>

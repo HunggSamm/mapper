@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.democrud.modules.mapper.StudentMapper">
+    <insert id="addStudent" parameterType="org.example.democrud.modules.entity.Student">
+        INSERT INTO student(
+            address,
+            city,
+            email,
+            name,
+            phone
+        )
+        VALUES(
+            #{address},
+            #{city},
+            #{email},
+            #{name},
+            #{phone}
+        )
+    </insert>
+    <update id="updateStudent" parameterType="org.example.democrud.modules.entity.Student">
+        UPDATE student
+        SET
+            address = #{address},
+            city = #{city},
+            email = #{email},
+            name = #{name},
+            phone = #{phone}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteStudent" parameterType="int">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+
+    <select id="getStudent" resultType="org.example.democrud.modules.entity.Student">
+        SELECT * FROM student
+        ORDER BY id DESC
+        LIMIT #{size} OFFSET #{offset}
+
+    </select>
+    <select id="getStudentById" resultType="org.example.democrud.modules.entity.Student" parameterType="int">
+        SELECT * FROM student WHERE
+        <if test="id !=null and id !=''">
+            student.id = #{id}
+        </if>
+    </select>
+    <select id="countStudents" resultType="int">
+        SELECT COUNT(*) FROM student
+    </select>
+</mapper>
